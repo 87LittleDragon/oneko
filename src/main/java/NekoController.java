@@ -72,6 +72,7 @@ public class NekoController {
 	private Rectangle nekoBounds = new Rectangle();
 	private Timer timer;
 	private int w,h; // size of icons
+	private boolean isWhite;
 
 	//
 	// UI Components
@@ -94,6 +95,7 @@ public class NekoController {
 		this.slp=0;
 
 		loadKitten();
+		isWhite = true;
 		w=image[1].getIconWidth();
 		h=image[1].getIconHeight();
 		invisibleWindow.setSize(w,h);
@@ -120,10 +122,38 @@ public class NekoController {
 		// image[0] is a default, image[25] is part of the wash animation with image[31]
 		image = new ImageIcon[33];
 		for (int i = 1; i <= 32; i++) {
-			image[i] = new ImageIcon(Neko.class.getResource("images/" + i + ".GIF"));
+			image[i] = new ImageIcon(Neko.class.getResource("images/white/" + i + ".GIF"));
+		}
+		image[0]=image[25];
+	}	
+	private void loadBlackKitten() {
+		// Note: The files start with 1. image[0] is a copy of 25.
+		// image[0] is a default, image[25] is part of the wash animation with image[31]
+		for (int i = 1; i <= 32; i++) {
+			image[i] = new ImageIcon(Neko.class.getResource("images/black/" + i + ".GIF"));
 		}
 		image[0]=image[25];
 	}
+	private void loadWhiteKitten() {
+		// Note: The files start with 1. image[0] is a copy of 25.
+		// image[0] is a default, image[25] is part of the wash animation with image[31]
+		for (int i = 1; i <= 32; i++) {
+			image[i] = new ImageIcon(Neko.class.getResource("images/white/" + i + ".GIF"));
+		}
+		image[0]=image[25];
+	}
+
+	public int changeKittenColor(){
+		if(isWhite){
+			loadBlackKitten();
+			isWhite = false;
+		}else{
+			loadWhiteKitten();
+			isWhite = true;
+		}
+	}
+
+
 
 	public int getWidth() { return w;}
 	public int getHeight() { return h;}
